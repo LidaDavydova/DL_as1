@@ -1,0 +1,28 @@
+stages:
+  data_engineering:
+    cmd: python code/datasets/data_process.py
+    deps:
+      - code/datasets/data_process.py
+      - data/raw/raw_data.csv
+    outs:
+      - data/processed/train_data.csv
+      - data/processed/test_data.csv
+
+  model_engineering:
+    cmd: python code/models/train.py
+    deps:
+      - code/models/train.py
+      - data/processed/train_data.csv
+      - data/processed/test_data.csv
+    outs:
+      - models/model.pkl
+      
+  deployment:
+    cmd: docker-compose -f code/deployment/docker-compose.yml build && docker-compose -f code/deployment/docker-compose.yml up -d
+    deps:
+      - code/deployment/api/Dockerfile.fastapi
+      - code/deployment/api/app.py
+      - code/deployment/app/Dockerfile.streamlit
+      - code/deployment/app/streamlit_app.py
+      - models/model.pkl
+      - code/deployment/docker-compose.yml

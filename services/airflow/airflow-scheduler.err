@@ -1,0 +1,146 @@
+[2025-09-13 14:39:37 +0300] [56170] [INFO] Starting gunicorn 20.1.0
+[2025-09-13 14:39:37 +0300] [56170] [INFO] Listening at: http://[::]:8793 (56170)
+[2025-09-13 14:39:37 +0300] [56170] [INFO] Using worker: sync
+[2025-09-13 14:39:37 +0300] [56171] [INFO] Booting worker with pid: 56171
+[2025-09-13 14:39:37 +0300] [56172] [INFO] Booting worker with pid: 56172
+[2025-09-13 14:45:01 +0300] [56170] [INFO] Handling signal: term
+[2025-09-13 14:45:01 +0300] [56172] [INFO] Worker exiting (pid: 56172)
+[2025-09-13 14:45:01 +0300] [56171] [INFO] Worker exiting (pid: 56171)
+Traceback (most recent call last):
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: asset_dag_run_queue
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/jobs/job.py", line 347, in run_job
+    return execute_job(job, execute_callable=execute_callable)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/jobs/job.py", line 376, in execute_job
+    ret = execute_callable()
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/jobs/scheduler_job_runner.py", line 1048, in _execute
+    self._run_scheduler_loop()
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/jobs/scheduler_job_runner.py", line 1332, in _run_scheduler_loop
+    num_queued_tis = self._do_scheduling(session)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/jobs/scheduler_job_runner.py", line 1423, in _do_scheduling
+    self._create_dagruns_for_dags(guard, session)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/utils/retries.py", line 93, in wrapped_function
+    for attempt in run_with_db_retries(max_retries=retries, logger=logger, **retry_kwargs):
+  File "/home/hedg/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 445, in __iter__
+    do = self.iter(retry_state=retry_state)
+  File "/home/hedg/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 378, in iter
+    result = action(retry_state)
+  File "/home/hedg/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 420, in exc_check
+    raise retry_exc.reraise()
+  File "/home/hedg/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 187, in reraise
+    raise self.last_attempt.result()
+  File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+    return self.__get_result()
+  File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/utils/retries.py", line 102, in wrapped_function
+    return func(*args, **kwargs)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/jobs/scheduler_job_runner.py", line 1486, in _create_dagruns_for_dags
+    query, triggered_date_by_dag = DagModel.dags_needing_dagruns(session)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/models/dag.py", line 2147, in dags_needing_dagruns
+    for r in session.scalars(select(AssetDagRunQueue)):
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1778, in scalars
+    return self.execute(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1717, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1710, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: asset_dag_run_queue
+[SQL: SELECT asset_dag_run_queue.asset_id, asset_dag_run_queue.target_dag_id, asset_dag_run_queue.created_at 
+FROM asset_dag_run_queue]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: job
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/hedg/.local/bin/airflow", line 7, in <module>
+    sys.exit(main())
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/__main__.py", line 55, in main
+    args.func(args)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/cli/cli_config.py", line 48, in command
+    return func(*args, **kwargs)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/utils/cli.py", line 112, in wrapper
+    return f(*args, **kwargs)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/utils/providers_configuration_loader.py", line 55, in wrapped_function
+    return func(*args, **kwargs)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/cli/commands/scheduler_command.py", line 52, in scheduler
+    run_command_with_daemon_option(
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/cli/commands/daemon_utils.py", line 81, in run_command_with_daemon_option
+    callback()
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/cli/commands/scheduler_command.py", line 55, in <lambda>
+    callback=lambda: _run_scheduler_job(args),
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/cli/commands/scheduler_command.py", line 43, in _run_scheduler_job
+    run_job(job=job_runner.job, execute_callable=job_runner._execute)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/utils/session.py", line 101, in wrapper
+    return func(*args, session=session, **kwargs)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/jobs/job.py", line 349, in run_job
+    job.complete_execution(session=session)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/utils/session.py", line 99, in wrapper
+    return func(*args, **kwargs)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/jobs/job.py", line 279, in complete_execution
+    session.merge(self)
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 3056, in merge
+    return self._merge(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 3136, in _merge
+    merged = self.get(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2853, in get
+    return self._get_impl(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2975, in _get_impl
+    return db_load_fn(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 530, in load_on_pk_identity
+    session.execute(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1717, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1710, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: job
+[SQL: SELECT job.id AS job_id, job.dag_id AS job_dag_id, job.state AS job_state, job.job_type AS job_job_type, job.start_date AS job_start_date, job.end_date AS job_end_date, job.latest_heartbeat AS job_latest_heartbeat, job.executor_class AS job_executor_class, job.hostname AS job_hostname, job.unixname AS job_unixname 
+FROM job 
+WHERE job.id = ?]
+[parameters: (4,)]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+[2025-09-13 14:45:01 +0300] [56170] [INFO] Shutting down: Master

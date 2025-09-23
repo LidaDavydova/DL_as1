@@ -1,0 +1,67 @@
+[2025-09-13T14:39:37.747+0300] {scheduler_job_runner.py:1022} INFO - Starting the scheduler
+[2025-09-13T14:39:37.750+0300] {executor_loader.py:269} INFO - Loaded executor: :LocalExecutor:
+[2025-09-13T14:39:37.758+0300] {scheduler_job_runner.py:2218} INFO - Adopting or resetting orphaned tasks for active dag runs
+[2025-09-13T14:44:37.835+0300] {scheduler_job_runner.py:2218} INFO - Adopting or resetting orphaned tasks for active dag runs
+[2025-09-13T14:45:01.150+0300] {scheduler_job_runner.py:1052} ERROR - Exception when executing SchedulerJob._run_scheduler_loop
+Traceback (most recent call last):
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: asset_dag_run_queue
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/jobs/scheduler_job_runner.py", line 1048, in _execute
+    self._run_scheduler_loop()
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/jobs/scheduler_job_runner.py", line 1332, in _run_scheduler_loop
+    num_queued_tis = self._do_scheduling(session)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/jobs/scheduler_job_runner.py", line 1423, in _do_scheduling
+    self._create_dagruns_for_dags(guard, session)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/utils/retries.py", line 93, in wrapped_function
+    for attempt in run_with_db_retries(max_retries=retries, logger=logger, **retry_kwargs):
+  File "/home/hedg/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 445, in __iter__
+    do = self.iter(retry_state=retry_state)
+  File "/home/hedg/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 378, in iter
+    result = action(retry_state)
+  File "/home/hedg/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 420, in exc_check
+    raise retry_exc.reraise()
+  File "/home/hedg/.local/lib/python3.10/site-packages/tenacity/__init__.py", line 187, in reraise
+    raise self.last_attempt.result()
+  File "/usr/lib/python3.10/concurrent/futures/_base.py", line 451, in result
+    return self.__get_result()
+  File "/usr/lib/python3.10/concurrent/futures/_base.py", line 403, in __get_result
+    raise self._exception
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/utils/retries.py", line 102, in wrapped_function
+    return func(*args, **kwargs)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/jobs/scheduler_job_runner.py", line 1486, in _create_dagruns_for_dags
+    query, triggered_date_by_dag = DagModel.dags_needing_dagruns(session)
+  File "/home/hedg/.local/lib/python3.10/site-packages/airflow/models/dag.py", line 2147, in dags_needing_dagruns
+    for r in session.scalars(select(AssetDagRunQueue)):
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1778, in scalars
+    return self.execute(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1717, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1710, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/home/hedg/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: asset_dag_run_queue
+[SQL: SELECT asset_dag_run_queue.asset_id, asset_dag_run_queue.target_dag_id, asset_dag_run_queue.created_at 
+FROM asset_dag_run_queue]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+[2025-09-13T14:45:01.166+0300] {local_executor.py:222} INFO - Shutting down LocalExecutor; waiting for running tasks to finish.  Signal again if you don't want to wait.
+[2025-09-13T14:45:01.167+0300] {scheduler_job_runner.py:1064} INFO - Exited execute loop

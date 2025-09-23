@@ -1,0 +1,10 @@
+artifact_location: file:///media/data/inno_courses/DL/as1/DL_as1/code/models/mlruns/870481826452615689/models/m-a623e2cd749242f395135fd2cfa831e3/artifacts
+creation_timestamp: 1758302343521
+experiment_id: '870481826452615689'
+last_updated_timestamp: 1758302348785
+model_id: m-a623e2cd749242f395135fd2cfa831e3
+model_type: null
+name: wine_model
+source_run_id: d0cce1056a27410484dda7130768d420
+status: 2
+status_message: null

@@ -1,0 +1,14 @@
+artifact_uri: file:///media/data/inno_courses/DL/as1/DL_as1/code/models/mlruns/870481826452615689/d0cce1056a27410484dda7130768d420/artifacts
+end_time: 1758302350621
+entry_point_name: ''
+experiment_id: '870481826452615689'
+lifecycle_stage: active
+run_id: d0cce1056a27410484dda7130768d420
+run_name: run 01
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1758302343475
+status: 3
+tags: []
+user_id: hedg

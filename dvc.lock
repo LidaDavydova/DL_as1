@@ -1,0 +1,70 @@
+schema: '2.0'
+stages:
+  data_engineering:
+    cmd: python code/datasets/data_process.py
+    deps:
+    - path: code/datasets/data_process.py
+      hash: md5
+      md5: 2a477946892c506140340d88089083fb
+      size: 1098
+    - path: data/raw/raw_data.csv
+      hash: md5
+      md5: 7506763ea9302c766155b006de9cc47b
+      size: 10889
+    outs:
+    - path: data/processed/test_data.csv
+      hash: md5
+      md5: fe190333f5b05d130e24539589780a8b
+      size: 1760
+    - path: data/processed/train_data.csv
+      hash: md5
+      md5: 2c78d6ce9b23c9c1c654609ee29f8808
+      size: 6751
+  model_engineering:
+    cmd: python code/models/train.py
+    deps:
+    - path: code/models/train.py
+      hash: md5
+      md5: d3b45ca341b1169805ea6a056757cf29
+      size: 3419
+    - path: data/processed/test_data.csv
+      hash: md5
+      md5: fe190333f5b05d130e24539589780a8b
+      size: 1760
+    - path: data/processed/train_data.csv
+      hash: md5
+      md5: 2c78d6ce9b23c9c1c654609ee29f8808
+      size: 6751
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: 86a2372bc7699d8d8800248e1c0c7f1f
+      size: 1985
+  deployment:
+    cmd: docker-compose -f code/deployment/docker-compose.yml build && 
+      docker-compose -f code/deployment/docker-compose.yml up -d
+    deps:
+    - path: code/deployment/api/Dockerfile.fastapi
+      hash: md5
+      md5: b06b1a29ed933418bb7ed42dddd58b24
+      size: 398
+    - path: code/deployment/api/app.py
+      hash: md5
+      md5: 6b1657e27fd8ff5427a33c4c183309c0
+      size: 873
+    - path: code/deployment/app/Dockerfile.streamlit
+      hash: md5
+      md5: 547e74bf51531eda8020a92e09b1c593
+      size: 393
+    - path: code/deployment/app/streamlit_app.py
+      hash: md5
+      md5: bc536e14e65ed844ff11507408ff0188
+      size: 1082
+    - path: code/deployment/docker-compose.yml
+      hash: md5
+      md5: b509448a5cc84fc59d69c5af88c15c65
+      size: 382
+    - path: models/model.pkl
+      hash: md5
+      md5: 86a2372bc7699d8d8800248e1c0c7f1f
+      size: 1985

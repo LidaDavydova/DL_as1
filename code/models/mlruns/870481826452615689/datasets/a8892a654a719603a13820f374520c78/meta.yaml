@@ -1,0 +1,8 @@
+digest: '26782335'
+name: dataset
+profile: '{"num_rows": 36, "num_elements": 72}'
+schema: '{"mlflow_colspec": [{"type": "long", "name": "label", "required": true},
+  {"type": "long", "name": "predictions", "required": true}]}'
+source: '{"tags": {"mlflow.user": "hedg", "mlflow.source.name": "train.py", "mlflow.source.type":
+  "LOCAL", "mlflow.source.git.commit": "56da5d2e0a7bf8e3da08fad9836d4ae91153fe34"}}'
+source_type: code

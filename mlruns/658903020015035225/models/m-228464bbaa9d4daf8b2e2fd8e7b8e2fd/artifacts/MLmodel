@@ -1,0 +1,36 @@
+artifact_path: file:///media/data/inno_courses/DL/as1/DL_as1/mlruns/658903020015035225/models/m-228464bbaa9d4daf8b2e2fd8e7b8e2fd/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict_proba
+    python_version: 3.10.12
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.6.1
+is_signature_from_type_hint: false
+mlflow_version: 3.4.0
+model_id: m-228464bbaa9d4daf8b2e2fd8e7b8e2fd
+model_size_bytes: 4779
+model_uuid: m-228464bbaa9d4daf8b2e2fd8e7b8e2fd
+prompts: null
+run_id: eaa55e7d48b047718d371ede5cfa2127
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "double", "name": "Alcohol", "required": true}, {"type": "double",
+    "name": "Malic.acid", "required": true}, {"type": "double", "name": "Color.int",
+    "required": true}, {"type": "double", "name": "Hue", "required": true}, {"type":
+    "long", "name": "Proline", "required": true}]'
+  outputs: '[{"type": "long", "name": "Wine", "required": true}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-09-23 16:55:35.098097'
